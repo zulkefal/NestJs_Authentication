@@ -7,6 +7,8 @@ import { User } from 'src/customer/entities/User.entity';
 import { Repository } from 'typeorm/repository/Repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 
 
@@ -19,7 +21,6 @@ export class AuthModuleService {
         const emailFound = await this.userRepository.findOne({where:{email:createUserDto.email}});
         if(emailFound)
         {
-            console.log("email found", emailFound)
             return new UserNotFoundException("Email already exists",202);
         }
         const salRounds=10
@@ -37,15 +38,16 @@ export class AuthModuleService {
         {
             return new UserNotFoundException("User not found",202);
         }
-        console.log("object found",findUser);
         const matchPassword = await bcrypt.compare(loginUserDto.password,findUser.password);
         if(!matchPassword)
         {
             return new UserNotFoundException("Password not matched",202);
         }
         const payload = {sub:findUser.id, username:findUser.username};
+        console.log("payload",payload);
         const token = await this.jwtService.signAsync(payload);
-        return token;
+        // console.log("token",token);
+        // return token;
       }
     
 }
