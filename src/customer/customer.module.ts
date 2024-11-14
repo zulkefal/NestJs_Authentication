@@ -15,11 +15,11 @@ import { User } from './entities/User.entity';
 export class CustomerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(ValidateCustomerMiddleware).forRoutes({
-      path: 'customer/id/:id',
+      path: 'customers/id/:id',
       method: RequestMethod.GET,
     });
     consumer.apply(ValidateCustomerAccountMiddleware).forRoutes({
-      path: 'customer/all',
+      path: 'customers/all',
       method: RequestMethod.GET,
     });
   }
