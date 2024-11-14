@@ -46,8 +46,7 @@ export class AuthModuleService {
         const payload = {sub:findUser.id, username:findUser.username};
         console.log("payload",payload);
         const token = await this.jwtService.signAsync(payload);
-        // console.log("token",token);
-        // return token;
+        return token;
       }
     
 }

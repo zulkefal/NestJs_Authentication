@@ -5,13 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/customer/entities/User.entity';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { CustomerService } from 'src/customer/customer.service';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
+
+// Print the value of process.env.JWT_SECRET to ensure it is loaded correctly
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET || 'defaultSecretKey', // Ensure this is set
       signOptions: { expiresIn: '1d' },
     }),
   ],
@@ -30,4 +34,6 @@ import { CustomerService } from 'src/customer/customer.service';
   ],
   exports: [AuthModuleService],
 })
+
+
 export class AuthModule {}
