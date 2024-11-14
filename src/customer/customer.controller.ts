@@ -7,8 +7,13 @@ export class CustomerController {
 
   @Get('/id/:id')
   getUser(@Param('id', ParseIntPipe) id: number) {
-    console.log('Customer Controller');
     const r = this.customerService.getUserById(id);
+    return r;
+  }
+
+  @Get('all')
+  getAllUsers() {
+    const r = this.customerService.getAllUsers();
     return r;
   }
 

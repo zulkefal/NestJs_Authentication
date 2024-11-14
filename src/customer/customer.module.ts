@@ -19,8 +19,8 @@ export class CustomerModule implements NestModule {
       method: RequestMethod.GET,
     });
     consumer.apply(ValidateCustomerAccountMiddleware).forRoutes({
-      path: 'customer',
-      method: RequestMethod.POST,
+      path: 'customer/all',
+      method: RequestMethod.GET,
     });
   }
 }

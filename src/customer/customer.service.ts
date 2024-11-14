@@ -16,5 +16,13 @@ export class CustomerService {
     return rzlt;
   }
 
+  async getAllUsers() {
+    const rzlt = this.userRepository.find();
+    if(!rzlt) {
+        throw new UserNotFoundException("No Users found in the system",202);
+    }
+    return rzlt;
+  }
+
   
 }

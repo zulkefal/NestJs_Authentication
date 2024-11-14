@@ -21,4 +21,5 @@ export class AuthModuleController {
     const rzlt = this.authModuleService.login(loginUserDto);
     return rzlt;
   }
+  
 }

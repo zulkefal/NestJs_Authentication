@@ -23,6 +23,11 @@ export class AuthModuleService {
         {
             return new UserNotFoundException("Email already exists",202);
         }
+        const userName = await this.userRepository.findOne({where:{username:createUserDto.username}});
+        if(userName)
+        {
+            return new UserNotFoundException("Username already exist",202);
+        }
         const salRounds=10
         const platinTextPW = '%sadf1234(*)&^%$#@!';
         const hashedPW = await bcrypt.hash(platinTextPW,salRounds);
@@ -44,7 +49,6 @@ export class AuthModuleService {
             return new UserNotFoundException("Password not matched",202);
         }
         const payload = {sub:findUser.id, username:findUser.username};
-        console.log("payload",payload);
         const token = await this.jwtService.signAsync(payload);
         return token;
       }
